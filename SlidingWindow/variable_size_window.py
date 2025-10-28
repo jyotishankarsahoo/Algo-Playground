@@ -119,3 +119,32 @@ def lengthOfLongestSubArrayWithMostMZeros(arr: list[int], m: int):
     return maxLength
 
 print(f"lengthOfLongestSubArrayWithMostMZeros: {lengthOfLongestSubArrayWithMostMZeros([1,1,0,0,1,1,1,0,1,1], 2)}")
+
+"""
+Longest Substring Without Repeating Characters
+    Problem: 
+        Given a string, S, 
+        find the length of the longest contiguous substring 
+        that contains no repeating characters.
+    Goal: Find max(right - left + 1) such that count(any character in window) <= 1.
+    input: s = "abcabcbb"
+    output: 3
+"""
+def longestSubstringWithoutRepeatingChar(s: str):
+    max_length = 0
+    left = 0
+    freq_map = {}
+    for right in range(len(s)):
+        if s[right] in freq_map:
+            freq_map[s[right]] += 1
+        else:
+            freq_map[s[right]] = 1
+        while freq_map[s[right]] > 1:
+            freq_map[s[left]] -= 1
+            if freq_map[s[left]] == 0:
+                del freq_map[s[left]]
+            left += 1
+        current_length = right - left + 1
+        max_length = max(max_length, current_length)
+    return max_length
+print(f"longestSubstringWithoutRepeatingChar: {longestSubstringWithoutRepeatingChar("abcabcbb")}")
