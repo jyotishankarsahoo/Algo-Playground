@@ -148,3 +148,53 @@ def longestSubstringWithoutRepeatingChar(s: str):
         max_length = max(max_length, current_length)
     return max_length
 print(f"longestSubstringWithoutRepeatingChar: {longestSubstringWithoutRepeatingChar("abcabcbb")}")
+
+"""
+Longest Substring with At Most Two Distinct Characters (Specific K)
+    Problem: 
+        Given a string, S, 
+        find the length of the longest contiguous substring 
+        that contains at most two distinct characters.
+    Input: s = "eceba"
+    Output: 3
+    Explanation: The substring is "ece" which its length is 3.
+"""
+
+def longestSubstringWithAtAMostTwoDistinctChars(s: str):
+    left = 0
+    longestSubstringLength = 0
+    frqMap = {}
+    for right in range(len(s)):
+        if s[right] in frqMap:
+            frqMap[s[right]] += 1
+        else:
+            frqMap[s[right]] = 1
+        while len(frqMap) > 2:
+            frqMap[s[left]] -= 1
+            if frqMap[s[left]] == 0:
+                del frqMap[s[left]]
+            left += 1
+        currentSubStringLength = right - left + 1
+        longestSubstringLength = max(currentSubStringLength, longestSubstringLength)
+    return longestSubstringLength
+
+print(f"longestSubstringWithAtAMostTwoDistinctChars: {longestSubstringWithAtAMostTwoDistinctChars("abcabcbb")}")
+
+
+"""
+Minimum Window Sort SubArray (Simplified for Window)
+    Problem: 
+        Given an array of integers, arr and an integer D, 
+        find the length of the shortest contiguous subArray 
+        whose sum is strictly less than D. Return 0 if no such subArray exists.
+"""
+
+
+
+"""
+Longest Substring with Equal Number of Zeros and Ones
+    Problem: 
+        Given a binary array arr containing only 0s and 1s, 
+        find the length of the longest contiguous subArray 
+        that has an equal number of 0s and 1s.
+"""
