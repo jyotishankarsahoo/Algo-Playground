@@ -187,7 +187,24 @@ Minimum Window Sort SubArray (Simplified for Window)
         Given an array of integers, arr and an integer D, 
         find the length of the shortest contiguous subArray 
         whose sum is strictly less than D. Return 0 if no such subArray exists.
+    input: arr = [2, 1, 5, 2, 3, 2], D = 7
+    output: 1
+    Explanation: The subArray [5, 2] has the minimum length under the problem
 """
+def minWindowSubArraySumLessThanD(arr: list[int], d: int):
+    left = 0
+    minSubArrayLength = float("inf")
+    subArraySum = 0
+    for right in range(len(arr)):
+        subArraySum += arr[right]
+        while subArraySum >= d:
+            subArraySum -= arr[left]
+            left += 1
+        currentSubArrayLength = right - left + 1
+        minSubArrayLength = min(currentSubArrayLength, minSubArrayLength)
+    return 0 if minSubArrayLength == float('inf') else minSubArrayLength
+        
+print(f"minWindowSubArraySumLessThanD: {minWindowSubArraySumLessThanD([2, 1, 5, 2, 3, 2], 7)}")
 
 
 
