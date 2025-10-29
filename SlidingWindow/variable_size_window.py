@@ -206,12 +206,35 @@ def minWindowSubArraySumLessThanD(arr: list[int], d: int):
         
 print(f"minWindowSubArraySumLessThanD: {minWindowSubArraySumLessThanD([2, 1, 5, 2, 3, 2], 7)}")
 
-
-
 """
-Longest Substring with Equal Number of Zeros and Ones
+Longest Substring After Replacement
     Problem: 
-        Given a binary array arr containing only 0s and 1s, 
-        find the length of the longest contiguous subArray 
-        that has an equal number of 0s and 1s.
+        Given a string S containing only uppercase English letters, 
+        and an integer K, 
+        find the length of the longest substring you can obtain 
+        by changing at most K characters.
+    input: s = "AABABBA", K = 1
+    output: 4
+    Explanation:
+        Replace the one 'A' in the middle with 'B' and form "AABBBBA". 
+        The longest substring is "BBBB" with length 4.
 """
+
+def longestSubstringAfterReplacement(s: str, k: int):
+    left = 0
+    freq_map = {}
+    max_repeat_count = 0
+    final_window_length = 0
+    for right in range(len(s)):
+        if s[right] in freq_map:
+            freq_map[s[right]] += 1
+        else:
+            freq_map[s[right]] = 1
+        max_repeat_count = max(max_repeat_count, freq_map[s[right]])
+        while right - left + 1 - max_repeat_count > k:
+            freq_map[s[left]] -= 1
+            left += 1
+        final_window_length = max(final_window_length, right - left + 1)
+    return final_window_length
+        
+print(f"longestSubstringAfterReplacement: {longestSubstringAfterReplacement("AABABBA", 1)}")
